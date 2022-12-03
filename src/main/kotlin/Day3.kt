@@ -5,22 +5,13 @@ class Day3(private val puzzle: List<String>) {
     }
 
     fun sumAllGroupBadges(): Int {
-        return puzzle.groupKnapsacksIntoThrees().map { it.getSharedItemBetweenKnapsacks() }.score()
-    }
-
-    private fun List<String>.groupKnapsacksIntoThrees(): List<List<String>> {
-        return this.foldIndexed(listOf()) { index, acc, knapsack ->
-            when (index % 3 == 0) {
-                true -> acc + listOf(listOf(knapsack))
-                false -> acc.dropLast(1) + listOf((acc.last() + listOf(knapsack)))
-            }
-        }
+        return puzzle.chunked(3).map { it.getSharedItemBetweenKnapsacks() }.score()
     }
 
     private fun List<String>.getSharedItemBetweenKnapsacks(): Char {
         val firstKnapsack = this.first().toHashSet()
         return this.drop(1).fold(firstKnapsack) { sharedChars, knapsack ->
-            knapsack.filter { sharedChars.contains(it) }.toHashSet()
+            knapsack.toHashSet().intersect(sharedChars).toHashSet()
         }.first()
     }
 
