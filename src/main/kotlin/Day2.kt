@@ -1,16 +1,4 @@
-sealed class Roshambo(val point: Int) {
-    override fun equals(other: Any?): Boolean {
-        return when (other) {
-            null -> false
-            else -> other::class == this::class
-        }
-    }
-
-    override fun hashCode(): Int {
-        return point
-    }
-}
-
+sealed class Roshambo(val point: Int)
 object Rock : Roshambo(1)
 object Paper : Roshambo(2)
 object Scissors : Roshambo(3)
@@ -59,8 +47,8 @@ fun getRoshamboForScore(outcome: Outcome): (Hand.Opponent) -> Roshambo {
     return { opponentHand ->
         when(outcome) {
             is Win -> opponentHand.roshambo.beats().beats()
-            is Draw -> opponentHand.roshambo
             is Loss -> opponentHand.roshambo.beats()
+            is Draw -> opponentHand.roshambo
         }
     }
 }
@@ -68,20 +56,13 @@ fun getRoshamboForScore(outcome: Outcome): (Hand.Opponent) -> Roshambo {
 
 class Day2 {
     fun parseForHandAndGetScore(puzzleInput: List<String>): Int {
-        return parsePuzzleForMyHand(puzzleInput).fold(0) { acc, round ->
-            println(
-                "My hand: ${round.second.roshambo}, Their hand: ${round.first.roshambo}, my point: ${round.second.roshambo.point} + my round: ${
-                    scoreMyRound(
-                        round.second
-                    )(round.first).point
-                }"
-            )
+        return decodePuzzleForMyHand(puzzleInput).fold(0) { acc, round ->
             acc + round.second.roshambo.point + scoreMyRound(round.second)(round.first).point
         }
     }
 
     fun parseForRoundOutcomeAndGetScore(puzzleInput: List<String>): Int {
-        return parsePuzzleForScore(puzzleInput).fold(0) { acc, round ->
+        return decodePuzzleForScore(puzzleInput).fold(0) { acc, round ->
             acc + round.second.point + getRoshamboForScore(round.second)(round.first).point
         }
     }
@@ -109,7 +90,7 @@ class Day2 {
         }
     }
 
-    private fun parsePuzzleForMyHand(puzzleInput: List<String>): List<Pair<Hand.Opponent, Hand.Mine>> {
+    private fun decodePuzzleForMyHand(puzzleInput: List<String>): List<Pair<Hand.Opponent, Hand.Mine>> {
         return decodeOnlyOpponentsHand<Hand.Mine>(puzzleInput)() {
             when (it) {
                 SecondCode.X -> Hand.Mine(Rock)
@@ -119,7 +100,7 @@ class Day2 {
         }
     }
 
-    private fun parsePuzzleForScore(puzzleInput: List<String>): List<Pair<Hand.Opponent, Outcome>> {
+    private fun decodePuzzleForScore(puzzleInput: List<String>): List<Pair<Hand.Opponent, Outcome>> {
         return decodeOnlyOpponentsHand<Outcome>(puzzleInput)() {
             when (it) {
                 SecondCode.X -> Loss
