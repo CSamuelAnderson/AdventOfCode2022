@@ -7,9 +7,13 @@ fun main() {
 //    println(day2Puzzle.parseForHandAndGetScore(PuzzleInput.get("inputDay2")))
 //    println(day2Puzzle.parseForRoundOutcomeAndGetScore(PuzzleInput.get("inputDay2")))
 
-    val day3Puzzle = Day3(PuzzleInput.get("inputDay3"))
-    println(day3Puzzle.sumAllNonUniqueItemScores())
-    println(day3Puzzle.sumAllGroupBadges())
+//    val day3Puzzle = Day3(PuzzleInput.get("inputDay3"))
+//    println(day3Puzzle.sumAllNonUniqueItemScores())
+//    println(day3Puzzle.sumAllGroupBadges())
+
+    val day4Puzzle = Day4(PuzzleInput.get("inputDay4"))
+    println(day4Puzzle.getNumOfRedundantAssignments())
+    println(day4Puzzle.getNumOfOverlappingAssignments())
 }
 
 class PuzzleInput {
