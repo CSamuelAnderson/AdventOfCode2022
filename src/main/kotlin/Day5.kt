@@ -23,7 +23,7 @@ class Day5(private val puzzle: List<String>) {
 
     fun moveWithCrateMover9001(): String {
         return moveAndGetTopCrates { initialPosition ->
-            { crateMove ->
+            { crateMove -> 
                 initialPosition.mapIndexed() { index, stack ->
                     when (index + 1) {
                         crateMove.fromColumn -> stack.dropLast(crateMove.numOfCrates)
