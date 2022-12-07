@@ -15,9 +15,13 @@ fun main() {
 //    println(day4Puzzle.getNumOfRedundantAssignments())
 //    println(day4Puzzle.getNumOfOverlappingAssignments())
 
-    val day5Puzzle = Day5(PuzzleInput.get("inputDay5"))
-    println(day5Puzzle.moveWithCrateMover9000())
-    println(day5Puzzle.moveWithCrateMover9001())
+//    val day5Puzzle = Day5(PuzzleInput.get("inputDay5"))
+//    println(day5Puzzle.moveWithCrateMover9000())
+//    println(day5Puzzle.moveWithCrateMover9001())
+
+    val day6Puzzle = Day6(PuzzleInput.get("inputDay6"))
+    println(day6Puzzle.detectEndOfPacket())
+    println(day6Puzzle.detectEndOfMessage())
 }
 
 class PuzzleInput {
